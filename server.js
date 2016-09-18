@@ -4,7 +4,8 @@ var path = require('path');
 
 var app = express();
 
-var articleOne = {
+var articles = {
+    'article-one': {
     title: 'Article One | Prabhjot Singh',
     heading: 'Article One',
     date: 'Sep 5, 2016',
@@ -17,6 +18,23 @@ var articleOne = {
                 <p>
                     This is the contect of my first article. This is the contect of my first article. This is the contect of my first article. This is the contect of my first article. This is the contect of my first article. This is the contect of my first article. This is the contect of my first article. This is the contect of my first article. This is the contect of my first article. This is the contect of my first article.
                 </p>`
+},
+    'article-two': {
+    title: 'Article Two | Prabhjot Singh',
+    heading: 'Article Two',
+    date: 'Sep 10, 2016',
+    content: `<p>
+                    This is the contect of my second article.
+              </p>`
+    },
+    'article-three': {
+    title: 'Article Three | Prabhjot Singh',
+    heading: 'Article Three',
+    date: 'Sep 15, 2016',
+    content: `<p>
+                    This is the contect of my third article. 
+                </p>`
+    }
 };
 
 function CreateTemplate(data)
@@ -58,16 +76,8 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/article-one',function(req, res){
-    res.send(CreateTemplate(articleOne));
-});
-
-app.get('/article-two',function(req, res){
-    res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
-});
-
-app.get('/article-three',function(req, res){
-    res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
+app.get('/:articleName',function(req, res){
+    res.send(CreateTemplate(articles[articleName]));
 });
 
 app.get('/ui/style.css', function (req, res) {
